@@ -22,6 +22,12 @@ def tokenize(text):
 data['body_text_tokenize'] = data['body_text_clean'].apply(lambda x: tokenize(x.lower()))
 
 
+# remove most commonly used words
+stopword = nltk.corpus.stopwords.words('english')
+def remove_stopwords(tokenized_list):
+    text = [word for word in tokenized_list if word not in stopword]
+    return text
+
+data['body_text_nostopwords'] = data['body_text_tokenize'].apply(lambda x: remove_stopwords(x))
+
 print(data.head(3))
-
-
